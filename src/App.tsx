@@ -20,7 +20,9 @@ type PhantomRequestMethod =
 interface ConnectOpts{
   onlyIfTrusted : boolean;
 }
-
+//This is started change
+//check1
+//check2
 interface PhantomProvider{
   publicKey: PublicKey | null;
   isConnected: boolean | null;
@@ -89,6 +91,19 @@ function App() {
     }
   };
 
+  const disconnectWallet= async()=>{    
+    try{
+      if(provider){
+        provider.disconnect();
+        setWalletKey(undefined);
+      }
+    }
+    catch(err){
+      console.log(err)
+    }
+
+  }
+
 	// HTML code for the app
   return (
     <div className="App">
@@ -108,7 +123,25 @@ function App() {
             Connect Wallet
           </button>
         )}
-        {provider && walletKey && <p>Connected account</p> }
+        {provider && walletKey && <div>
+          <p>Connected account</p>
+          <button
+            style={{
+              position: "absolute", 
+              top: "10px",
+              right: "10px", 
+              transform: "translate(-50%, 0%)",
+              fontSize: "16px",
+              padding: "15px",
+              fontWeight: "bold",
+              borderRadius: "5px",
+            }}
+            onClick={disconnectWallet}
+
+            >
+              Disconnect Wallet
+            </button>
+          </div> }
 
         {!provider && (
           <p>
